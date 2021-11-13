@@ -14,11 +14,11 @@ public class OpenningBook : MonoBehaviour
         on = true;
 
         //LeanTween.rotate(this.gameObject,  new Vector3(-177f ,0, 0) , 2) ;
-
-        LeanTween.rotateX(this.gameObject, -177f, 2);
-        float A = -180+ Vector3.Angle(Vector3.forward, join.transform.forward);
-        LeanTween.rotateAround(this.gameObject ,new Vector3(1,0,0) , A,1) ;
         cub.SetActive(false);
+       // LeanTween.rotateX(this.gameObject, -177f, 2);
+        float A = -180+ Vector3.Angle(Vector3.forward, join.transform.forward);
+        LeanTween.rotateAround(this.gameObject ,new Vector3(1,0,0) , A,0.8f) ;
+        
 
     }
 
