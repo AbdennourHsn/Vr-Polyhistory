@@ -10,13 +10,15 @@ public class OpenningBook : MonoBehaviour
     bool on;
    public void OpenBook( )
     {
-        //LeanTween.rotateX(join, -180, 2);
-        //LeanTween.rotateLocal(join, Vector3.zero, 2);
-      //  LeanTween.rotateAround(join, new Vector3(1, 0, 0), -180, 2);
+
         on = true;
-        //LeanTween.rotateX(this.gameObject, -180, 2);
-        LeanTween.rotate(this.gameObject, new Vector3(180,0, 0) , 2) ;
-       // LeanTween.rotateAround(join, new Vector3(1, 0, 0), -180, 2);
+
+        //LeanTween.rotate(this.gameObject,  new Vector3(-177f ,0, 0) , 2) ;
+
+        LeanTween.rotateX(this.gameObject, -177f, 2);
+        float A = -180+ Vector3.Angle(Vector3.forward, join.transform.forward);
+        LeanTween.rotateAround(this.gameObject ,new Vector3(1,0,0) , A,1) ;
+        cub.SetActive(false);
 
     }
 
@@ -29,6 +31,8 @@ public class OpenningBook : MonoBehaviour
             else join.transform.LookAt(new Vector3(this.transform.position.x, cub.transform.position.y, cub.transform.position.z), Vector3.down);
 
         }
+
+        if (!on && Vector3.Angle(Vector3.forward, join.transform.forward) > 95) OpenBook();
        
     }
 
