@@ -12,7 +12,7 @@ public class Book : MonoBehaviour
     private bool onPlace ;
     private bool grabed;
     BookPlace bookPlace;
-    [SerializeField] private GameObject canvase , handel , join;
+    [SerializeField] private GameObject otherBook;
 
 
     private void Start()
@@ -61,19 +61,10 @@ public class Book : MonoBehaviour
 
     IEnumerator SetHandel()
     {
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(1.1f);
+        this.gameObject.SetActive(false);
+        otherBook.SetActive(true);
         
-        handel.SetActive(true);
-       
-        join.SetActive(true);
-        if (canvase != null)
-        {
-            Vector3 canvasScal = canvase.gameObject.transform.localScale;
-            canvase.gameObject.transform.localScale = Vector3.zero;
-            canvase.SetActive(true);
-            LeanTween.scale(canvase, canvasScal, 1);
-        }
-
     }
 
     private void OnTriggerEnter(Collider other)

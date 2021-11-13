@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.3
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.012652202, g: 0.057223238, b: 0.07301857, a: 0.3}
+  m_IndirectSpecularColor: {r: 0.012652835, g: 0.057232946, b: 0.07301942, a: 0.3}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -29507,6 +29507,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 206215591}
     - target: {fileID: 1590198043634036389, guid: 76147e9455c5e492c92d172c2a37a8d0, type: 3}
+      propertyPath: otherBook
+      value: 
+      objectReference: {fileID: 1773947360}
+    - target: {fileID: 1590198043634036389, guid: 76147e9455c5e492c92d172c2a37a8d0, type: 3}
       propertyPath: OnSelected.m_PersistentCalls.m_Calls.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -29590,6 +29594,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 3368121486536942505, guid: 76147e9455c5e492c92d172c2a37a8d0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 68b04eba756e8406e9d07b4550f9d749, type: 2}
     - target: {fileID: 3928565027706654427, guid: 76147e9455c5e492c92d172c2a37a8d0, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
@@ -68301,6 +68309,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 459970, guid: a4c4b7181d69589408f981234a21c0fa, type: 3}
   m_PrefabInstance: {fileID: 1771610044}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1773947360 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8910991389982967704, guid: 76147e9455c5e492c92d172c2a37a8d0, type: 3}
+  m_PrefabInstance: {fileID: 8605071178589356528}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1774935050
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74652,7 +74665,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 411570, guid: fc4a3aff67c882541bfc7acb2222fbb4, type: 3}
       propertyPath: m_RootOrder
-      value: 211
+      value: 210
       objectReference: {fileID: 0}
     - target: {fileID: 411570, guid: fc4a3aff67c882541bfc7acb2222fbb4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -80748,7 +80761,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8910991389982967704, guid: 76147e9455c5e492c92d172c2a37a8d0, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76147e9455c5e492c92d172c2a37a8d0, type: 3}
