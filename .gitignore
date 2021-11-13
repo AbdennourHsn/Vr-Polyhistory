@@ -38,3 +38,12 @@ sysinfo.txt
 *.log
 *.log
 *.log
+Logs/AssetImportWorker0-prev.log
+Logs/AssetImportWorker0-prev.log
+Logs/shadercompiler-UnityShaderCompiler0.log
+Logs/shadercompiler-UnityShaderCompiler0.log
+Logs/shadercompiler-UnityShaderCompiler10.log
+*.log
+*.log
+*.log
+*.log
