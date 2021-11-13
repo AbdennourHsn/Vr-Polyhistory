@@ -17724,7 +17724,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &483393066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80654,6 +80654,14 @@ PrefabInstance:
       value: 309.52606
       objectReference: {fileID: 0}
     - target: {fileID: 8605071178063213218, guid: 76147e9455c5e492c92d172c2a37a8d0, type: 3}
+      propertyPath: m_ThrowOnDetach
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8605071178063213218, guid: 76147e9455c5e492c92d172c2a37a8d0, type: 3}
+      propertyPath: m_TrackRotation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8605071178063213218, guid: 76147e9455c5e492c92d172c2a37a8d0, type: 3}
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 845786380}
@@ -80666,8 +80674,12 @@ PrefabInstance:
       value: Books_1A
       objectReference: {fileID: 0}
     - target: {fileID: 8910991389982967704, guid: 76147e9455c5e492c92d172c2a37a8d0, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8910991389982967704, guid: 76147e9455c5e492c92d172c2a37a8d0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76147e9455c5e492c92d172c2a37a8d0, type: 3}
