@@ -7,8 +7,14 @@ public class OpenningBook : MonoBehaviour
 {
     public GameObject join;
     public GameObject cub;
+    Vector3 HandlePos;
     bool on;
-   public void OpenBook( )
+
+    private void Start()
+    {
+        HandlePos = cub.transform.position;
+    }
+    public void OpenBook( )
     {
 
         on = true;
@@ -33,6 +39,8 @@ public class OpenningBook : MonoBehaviour
         }
 
         if (!on && Vector3.Angle(Vector3.forward, join.transform.forward) > 95) OpenBook();
+
+        if (cub.transform.position.y < HandlePos.y - 0.05) cub.transform.position = HandlePos;
        
     }
 

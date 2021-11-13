@@ -22,12 +22,12 @@ public class Book : MonoBehaviour
 
     private void Update()
     {
-        if (onPlace) OnSelected.Invoke();
+        if (onPlace) { OnSelected.Invoke();  }
     }
-    public void OnTable(Transform target)
+    public void OnTable()
     {
         gameObject.GetComponent<XRGrabInteractable>().enabled = false;
-        TweenBook(target);
+        TweenBook();
         
         gameObject.GetComponent<Collider>().enabled = false;
         
@@ -51,10 +51,11 @@ public class Book : MonoBehaviour
         StartCoroutine(hightLite());
     }
 
-    public void TweenBook(Transform Target )
+    public void TweenBook()
     {
-        LeanTween.move(this.gameObject, Target.position, 1f);
-        LeanTween.rotate(this.gameObject, Target.eulerAngles, 1);
+
+        LeanTween.move(this.gameObject, otherBook.transform.position, 1f);
+        LeanTween.rotate(this.gameObject, otherBook.transform.eulerAngles, 1);
         StartCoroutine(SetHandel());
         
     }
@@ -72,6 +73,7 @@ public class Book : MonoBehaviour
         if (other.gameObject.tag == "Book")
         {
             onPlace = true;
+
         }
     }
 }
