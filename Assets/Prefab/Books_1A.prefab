@@ -302,7 +302,6 @@ GameObject:
   - component: {fileID: 8605071178063213220}
   - component: {fileID: 8605071178063213219}
   - component: {fileID: 8605071178063213218}
-  - component: {fileID: 8605071178063213217}
   m_Layer: 9
   m_Name: handle (1)
   m_TagString: Untagged
@@ -508,42 +507,6 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
---- !u!59 &8605071178063213217
-HingeJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8605071178063213247}
-  m_ConnectedBody: {fileID: 0}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_Anchor: {x: 0, y: -0.03, z: -0.22}
-  m_Axis: {x: 1, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 271.2116, y: 7.899513, z: 309.4985}
-  m_UseSpring: 0
-  m_Spring:
-    spring: 0
-    damper: 1
-    targetPosition: 0
-  m_UseMotor: 0
-  m_Motor:
-    targetVelocity: 0
-    force: 0
-    freeSpin: 0
-  m_UseLimits: 1
-  m_Limits:
-    min: -195.92227
-    max: 32.62883
-    bounciness: 0
-    bounceMinVelocity: 0.2
-    contactDistance: 0
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
 --- !u!1 &8605071179091341318
 GameObject:
   m_ObjectHideFlags: 0
@@ -777,6 +740,4 @@ MonoBehaviour:
   OnSelected:
     m_PersistentCalls:
       m_Calls: []
-  canvase: {fileID: 0}
-  handel: {fileID: 0}
-  join: {fileID: 0}
+  otherBook: {fileID: 0}
