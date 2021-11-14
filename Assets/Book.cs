@@ -12,7 +12,7 @@ public class Book : MonoBehaviour
     private bool onPlace ;
     private bool grabed;
     BookPlace bookPlace;
-    [SerializeField] private GameObject canvase , handel , join;
+    [SerializeField] private GameObject otherBook;
 
 
     private void Start()
@@ -22,12 +22,12 @@ public class Book : MonoBehaviour
 
     private void Update()
     {
-        if (onPlace) OnSelected.Invoke();
+        if (onPlace) { OnSelected.Invoke();  }
     }
-    public void OnTable(Transform target)
+    public void OnTable()
     {
         gameObject.GetComponent<XRGrabInteractable>().enabled = false;
-        TweenBook(target);
+        TweenBook();
         
         gameObject.GetComponent<Collider>().enabled = false;
         
@@ -51,29 +51,21 @@ public class Book : MonoBehaviour
         StartCoroutine(hightLite());
     }
 
-    public void TweenBook(Transform Target )
+    public void TweenBook()
     {
-        LeanTween.move(this.gameObject, Target.position, 1f);
-        LeanTween.rotate(this.gameObject, Target.eulerAngles, 1);
+
+        LeanTween.move(this.gameObject, otherBook.transform.position, 1f);
+        LeanTween.rotate(this.gameObject, otherBook.transform.eulerAngles, 1);
         StartCoroutine(SetHandel());
         
     }
 
     IEnumerator SetHandel()
     {
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(1.1f);
+        this.gameObject.SetActive(false);
+        otherBook.SetActive(true);
         
-        handel.SetActive(true);
-       
-        join.SetActive(true);
-        if (canvase != null)
-        {
-            Vector3 canvasScal = canvase.gameObject.transform.localScale;
-            canvase.gameObject.transform.localScale = Vector3.zero;
-            canvase.SetActive(true);
-            LeanTween.scale(canvase, canvasScal, 1);
-        }
-
     }
 
     private void OnTriggerEnter(Collider other)
@@ -81,6 +73,7 @@ public class Book : MonoBehaviour
         if (other.gameObject.tag == "Book")
         {
             onPlace = true;
+
         }
     }
 }
