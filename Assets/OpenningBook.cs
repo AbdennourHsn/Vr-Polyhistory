@@ -40,7 +40,7 @@ public class OpenningBook : MonoBehaviour
 
         if (!on && Vector3.Angle(Vector3.forward, join.transform.forward) > 95) OpenBook();
 
-        if (cub.transform.position.y < HandlePos.y - 0.05) cub.transform.position = HandlePos;
+        if (cub.transform.position.y < HandlePos.y - 2) cub.transform.position = HandlePos;
        
     }
 
