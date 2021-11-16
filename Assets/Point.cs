@@ -5,11 +5,12 @@ using UnityEngine;
 public class Point : MonoBehaviour
 {
     public List<Point> nighbers = new List<Point>();
-    public PuzzelManager puzzel;
+    public bool isSelected;
+    public PuzzelPoint puzzel;
     public bool startPt;
     private void Awake()
     {
-        puzzel = FindObjectOfType<PuzzelManager>();
+        puzzel = FindObjectOfType<PuzzelPoint>();
     }
 
     private void Start()
@@ -18,32 +19,38 @@ public class Point : MonoBehaviour
         nighbers.Add(GetTheRightPoint());
         nighbers.Add(GetTheDownPoint());
         nighbers.Add(GethTheLeftPoint());
+
+
     }
+
 
 
     public Point GetTheUpPoint()
     {
-        Point UpNighber=null;
+        Point UpNighber = null;
         float Distance = 0;
-        bool first=false;
+        bool first = false;
         foreach (Point p in puzzel.pts)
         {
-            if(p.transform.position.x == this.transform.position.x && p.transform.position.y > this.transform.position.y)
+            if (p.transform.position.x == this.transform.position.x && p.transform.position.y > this.transform.position.y)
             {
                 if (!first)
                 {
                     Distance = Vector3.Distance(this.transform.position, p.transform.position);
                     first = true;
                 }
-                if(Vector3.Distance(this.transform.position, p.transform.position) <= Distance)
+                if (Vector3.Distance(this.transform.position, p.transform.position) <= Distance)
                 {
-                    Distance= Vector3.Distance(this.transform.position, p.transform.position);
+                    Distance = Vector3.Distance(this.transform.position, p.transform.position);
                     UpNighber = p;
-                    print("Im in");
+
                 }
-               
+
             }
         }
+        if (UpNighber != null)
+            if (checkObstacle(UpNighber)) UpNighber = null;
+
         return UpNighber;
     }
     public Point GetTheDownPoint()
@@ -67,6 +74,9 @@ public class Point : MonoBehaviour
                 }
             }
         }
+        if (DownNighber != null)
+            if (checkObstacle(DownNighber)) DownNighber = null;
+
         return DownNighber;
     }
     public Point GetTheRightPoint()
@@ -90,6 +100,8 @@ public class Point : MonoBehaviour
                 }
             }
         }
+        if (rightNighber != null)
+            if (checkObstacle(rightNighber)) rightNighber = null;
         return rightNighber;
     }
     public Point GethTheLeftPoint()
@@ -113,6 +125,46 @@ public class Point : MonoBehaviour
                 }
             }
         }
+        if (leftNighber != null)
+            if (checkObstacle(leftNighber)) leftNighber = null;
         return leftNighber;
+    }
+
+    public bool checkObstacle(Point A)
+    {
+        bool existe = false;
+        foreach (Transform t in puzzel.obstacles)
+        {
+            if (t.position.x == A.transform.position.x && t.position.x == this.transform.position.x)
+            {
+                float centre = (A.transform.position.y + this.transform.position.y) / 2;
+                if (Mathf.Abs(centre - t.position.y) < Mathf.Abs(centre - this.transform.position.y)) existe = true;
+            }
+            if (t.position.y == A.transform.position.y && t.position.y == this.transform.position.y)
+            {
+                float centre = (A.transform.position.x + this.transform.position.x) / 2;
+                if (Mathf.Abs(centre - t.position.x) < Mathf.Abs(centre - this.transform.position.x)) existe = true;
+            }
+        }
+
+        return existe;
+    }
+
+
+    public Point UpNeighbor()
+    {
+        return nighbers[0];
+    }
+    public Point rightNeighbor()
+    {
+        return nighbers[1];
+    }
+    public Point DownNeighbor()
+    {
+        return nighbers[2];
+    }
+    public Point LeftNeighbor()
+    {
+        return nighbers[3];
     }
 }

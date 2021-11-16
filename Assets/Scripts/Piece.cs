@@ -9,17 +9,22 @@ public class Piece : MonoBehaviour
     public bool isEmpty;
     public int currPos;
     Puzzel puzzel;
+
     private void Start()
     {
         puzzel = FindObjectOfType<Puzzel>();
+       // canChange = true;
     }
 
     public void Move()
     {
-        if ((this.currPos + 1) % 3 != 0 && puzzel.p[currPos + 1].isEmpty) MoveRight();
-        else if (this.currPos != 0 && this.currPos % 3 != 0 && puzzel.p[currPos - 1].isEmpty) MoveLeft();
-        else if (this.currPos < 6 && puzzel.p[currPos + 3].isEmpty) MoveDown();
-        else if (this.currPos > 2 && puzzel.p[currPos - 3].isEmpty) MoveUp();
+        if (puzzel.Canmove())
+        {
+            if ((this.currPos + 1) % 3 != 0 && puzzel.p[currPos + 1].isEmpty) MoveRight();
+            else if (this.currPos != 0 && this.currPos % 3 != 0 && puzzel.p[currPos - 1].isEmpty) MoveLeft();
+            else if (this.currPos < 6 && puzzel.p[currPos + 3].isEmpty) MoveDown();
+            else if (this.currPos > 2 && puzzel.p[currPos - 3].isEmpty) MoveUp();
+        }
     }
 
     private void MoveUp()
@@ -46,7 +51,10 @@ public class Piece : MonoBehaviour
     {
         Vector3 Pos = this.transform.position;
         int CurrPosLocal=this.currPos;
-        this.transform.position = puzzel.p[indice].gameObject.transform.position;
+        LeanTween.move(this.gameObject, puzzel.p[indice].gameObject.transform.position, 1);
+        puzzel.SetCanMove(false);
+        StartCoroutine(CanChangeOn());
+        //this.transform.position = puzzel.p[indice].gameObject.transform.position;
         puzzel.p[indice].gameObject.transform.position = Pos;
 
         int aideInt = currPos;
@@ -57,5 +65,11 @@ public class Piece : MonoBehaviour
         Piece aide = puzzel.p[CurrPosLocal];
         puzzel.p[CurrPosLocal] = puzzel.p[indice];
         puzzel.p[indice] = aide;
+    }
+
+    IEnumerator CanChangeOn()
+    {
+        yield return new WaitForSeconds(1);
+        puzzel.SetCanMove(true);
     }
 }
