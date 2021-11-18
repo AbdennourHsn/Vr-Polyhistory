@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class OpenningBook : MonoBehaviour
 {
@@ -9,11 +10,28 @@ public class OpenningBook : MonoBehaviour
     public GameObject cub;
     Vector3 HandlePos;
     bool on;
+    [SerializeField] UnityEvent IsOpen;
 
-    private void Start()
+    bool canHandl;
+
+    
+    private void OnEnable()
     {
-        HandlePos = cub.transform.position;
+        cub.gameObject.GetComponent<XRGrabInteractable>().enabled = false;
+        StartCoroutine(pos());
+
     }
+
+
+    IEnumerator pos()
+    {
+        yield return new WaitForSeconds(2);
+        HandlePos = cub.transform.position;
+        canHandl = true;
+        print("xxxx");
+        cub.gameObject.GetComponent<XRGrabInteractable>().enabled = true;
+    }
+
     public void OpenBook( )
     {
 
@@ -24,6 +42,8 @@ public class OpenningBook : MonoBehaviour
        // LeanTween.rotateX(this.gameObject, -177f, 2);
         float A = -180+ Vector3.Angle(Vector3.forward, join.transform.forward);
         LeanTween.rotateAround(this.gameObject ,new Vector3(1,0,0) , A,0.8f) ;
+
+        IsOpen.Invoke();
         
 
     }
@@ -40,8 +60,12 @@ public class OpenningBook : MonoBehaviour
 
         if (!on && Vector3.Angle(Vector3.forward, join.transform.forward) > 95) OpenBook();
 
-        if (cub.transform.position.y < HandlePos.y - 2) cub.transform.position = HandlePos;
-       
+        if ( canHandl && cub.transform.position.y < HandlePos.y-0.2f)
+        {
+            
+            cub.transform.position = HandlePos;
+            
+        }
     }
 
 
