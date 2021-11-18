@@ -9,6 +9,9 @@ public class OpenningBook : MonoBehaviour
     public GameObject cub;
     Vector3 HandlePos;
     bool on;
+    [SerializeField] UnityEvent IsOpen;
+
+
 
     private void Start()
     {
@@ -24,6 +27,8 @@ public class OpenningBook : MonoBehaviour
        // LeanTween.rotateX(this.gameObject, -177f, 2);
         float A = -180+ Vector3.Angle(Vector3.forward, join.transform.forward);
         LeanTween.rotateAround(this.gameObject ,new Vector3(1,0,0) , A,0.8f) ;
+
+        IsOpen.Invoke();
         
 
     }
