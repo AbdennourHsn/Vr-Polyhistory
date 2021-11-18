@@ -6,8 +6,14 @@ public class Puzzel : MonoBehaviour
 {
     public Piece[] p;
     private bool canMove;
+    public Piece EmptyPiece;
     private void Start()
     {
+        foreach (Piece p in p) if (p.isEmpty)
+            {
+                EmptyPiece = p;
+                break;
+            }
         for (int i = 0; i < p.Length; i++)
         {
             p[i].currPos = i;
@@ -18,22 +24,23 @@ public class Puzzel : MonoBehaviour
     }
     public void RandomPuzzel()
     {
-        int x = Random.Range(0, p.Length);
-        int y = Random.Range(0, p.Length);
-        while (p[x].isEmpty) x = Random.Range(0, p.Length);
-        while (p[y].isEmpty && x==y) y = Random.Range(0, p.Length);
-        Vector3 aideV3 = p[x].transform.position;
-        int aideInt = p[x].currPos;
-
-        p[x].transform.position = p[y].transform.position;
-        p[x].currPos = p[y].currPos;
-
-        p[y].transform.position = aideV3;
-        p[y].currPos = aideInt;
+        EmptyPiece.MoveUp();
+        EmptyPiece.MoveLeft();
+        EmptyPiece.MoveDown();
     }
     public void check()
     {
+        bool win=true;
+        foreach(Piece p in p)
+        {
+            if (p.currPos != p.rightPosition) win = false;
+        }
 
+        if (win)
+        {
+            canMove = false;
+            EmptyPiece.gameObject.GetComponent<MeshRenderer>().enabled = true;
+        }
     }
     public void SetCanMove(bool move) { canMove = move; }
     public bool Canmove() { return canMove; }

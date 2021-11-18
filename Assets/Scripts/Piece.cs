@@ -25,30 +25,36 @@ public class Piece : MonoBehaviour
             else if (this.currPos != 0 && this.currPos % 3 != 0 && puzzel.p[currPos - 1].isEmpty) MoveLeft();
             else if (this.currPos < 6 && puzzel.p[currPos + 3].isEmpty) MoveDown();
             else if (this.currPos > 2 && puzzel.p[currPos - 3].isEmpty) MoveUp();
+            
         }
+
     }
 
-    private void MoveUp()
+    public void MoveUp()
     {
-        ChangePos(currPos - 3);
+        if (!isEmpty) ChangePosTween(currPos - 3);
+        else changePis(currPos - 3);
     }
 
-    private void MoveDown()
+    public void MoveDown()
     {
-        ChangePos(currPos + 3);
+        if (!isEmpty) ChangePosTween(currPos + 3);
+        else changePis(currPos + 3);
     }
 
-    private void MoveRight()
+    public void MoveRight()
     {
-        ChangePos(currPos + 1);
+        if (!isEmpty) ChangePosTween(currPos + 1);
+        else changePis(currPos + 1);
     }
 
-    private void MoveLeft()
+    public void MoveLeft()
     {
-        ChangePos(currPos - 1);
+        if (!isEmpty) ChangePosTween(currPos - 1);
+        else changePis(currPos - 1);
     }
 
-    public void ChangePos(int indice)
+    public void ChangePosTween(int indice)
     {
         Vector3 Pos = this.transform.position;
         int CurrPosLocal=this.currPos;
@@ -68,9 +74,30 @@ public class Piece : MonoBehaviour
         puzzel.p[indice] = aide;
     }
 
+    public void changePis(int indice)
+    {
+        Vector3 Pos = this.transform.position;
+        int CurrPosLocal = this.currPos;
+       
+
+
+        this.transform.position = puzzel.p[indice].gameObject.transform.position;
+        puzzel.p[indice].gameObject.transform.position = Pos;
+
+        int aideInt = currPos;
+        currPos = indice;
+        puzzel.p[indice].currPos = aideInt;
+
+
+        Piece aide = puzzel.p[CurrPosLocal];
+        puzzel.p[CurrPosLocal] = puzzel.p[indice];
+        puzzel.p[indice] = aide;
+    }
+
     IEnumerator CanChangeOn()
     {
         yield return new WaitForSeconds(1);
         puzzel.SetCanMove(true);
+        puzzel.check();
     }
 }
