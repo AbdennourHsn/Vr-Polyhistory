@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Point : MonoBehaviour
 {
-    public List<Point> nighbers = new List<Point>();
+    private List<Point> nighbers = new List<Point>();
     public bool isSelected;
-    public PuzzelPoint puzzel;
-    public bool startPt;
+    private PuzzelPoint puzzel;
+    public bool startPt , ExitePt;
     private void Awake()
     {
         puzzel = FindObjectOfType<PuzzelPoint>();

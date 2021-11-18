@@ -8,6 +8,7 @@ public class Piece : MonoBehaviour
 
     public bool isEmpty;
     public int currPos;
+    public int rightPosition;
     Puzzel puzzel;
 
     private void Start()

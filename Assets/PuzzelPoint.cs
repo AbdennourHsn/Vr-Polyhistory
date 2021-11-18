@@ -9,27 +9,25 @@ public class PuzzelPoint : MonoBehaviour
 {
     public Point[] pts;
     public Transform[] obstacles;
-    Point startPt;
+    public Point[] index;
+
+    private Point startPt;
+    private Point ExitePt;
+
     LineRenderer lr;
-    public bool isOn;
-    public List<Vector3> pointsOfLine = new List<Vector3>();
-    public List<Point> PtOfLine = new List<Point>();
+    private bool isOn;
+    private List<Vector3> pointsOfLine = new List<Vector3>();
+    private List<Point> PtOfLine = new List<Point>();
     public GameObject ob;
-    //
-    bool   hovered;
+    // Get VR inputs
+    private bool   hovered;
     InputDevice RightDevice;
     Get2DMovement mouse;
     //
-
-    public Text text;
-    public Text textXX;
-    int A = 0;
-
-
-    public bool check;
-    Vector3 currDir = Vector3.zero;
-
-    Vector3 end;
+    public Text text; // debuging
+    private bool checkDir;
+    private Vector3 currDir = Vector3.zero;
+    private Vector3 end;
     private void Start()
     {
         lr = this.GetComponent<LineRenderer>();
@@ -53,7 +51,7 @@ public class PuzzelPoint : MonoBehaviour
 
     public Vector2 EndLinePos(Vector3 mousePos)
     {
-        //Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        
         Vector2 end;
         if (isOn && (currDir == Vector3.up || currDir == Vector3.down))
         {
@@ -111,7 +109,6 @@ public class PuzzelPoint : MonoBehaviour
             else
             {
                 clearAll();
-                //Debug.Log("mouse off");
             }
 
             if (isOn)
@@ -150,7 +147,7 @@ public class PuzzelPoint : MonoBehaviour
     public void GetDirection(Vector3 mp)
     {
         float alpha;
-        if (!check)
+        if (!checkDir)
         {
 
             alpha = -Vector2.SignedAngle(mp - PtOfLine[PtOfLine.Count - 1].transform.position, Vector3.right);
@@ -171,7 +168,7 @@ public class PuzzelPoint : MonoBehaviour
                 else CheckDir(Vector2.down);
             }
             // print("On");
-            check = true;
+            checkDir = true;
         }
     }
 
@@ -241,12 +238,12 @@ public class PuzzelPoint : MonoBehaviour
         PtOfLine.Add(p);
         p.isSelected = true;
         pointsOfLine.Insert(pointsOfLine.Count - 1, p.transform.position);
-        check = false;
+        checkDir = false;
     }
 
     public void clearAll()
     {
-        check = false;
+        checkDir = false;
         isOn = false;
         pointsOfLine.Clear();
         foreach (Point p in PtOfLine) p.isSelected = false;
@@ -273,5 +270,24 @@ public class PuzzelPoint : MonoBehaviour
         //A++;
     }
 
+    public void checkWin()
+    {
+        if (PtOfLine.Count <= index.Length)
+        {
+            bool win = true;
+            foreach(Point p in index)
+                if (!p.isSelected)
+                {
+                    win = false;
+                    break;
+                }
+            if (win) Win();
+        }
+    }
+
+    private void Win()
+    {
+
+    }
     
 }
