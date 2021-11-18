@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Point : MonoBehaviour
 {
-    private List<Point> nighbers = new List<Point>();
+    public List<Point> nighbers = new List<Point>();
     public bool isSelected;
     private PuzzelPoint puzzel;
     public bool startPt , ExitePt;
