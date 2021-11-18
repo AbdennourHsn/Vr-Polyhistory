@@ -16,27 +16,28 @@ public class ImgController : MonoBehaviour
         currImg = 0;
         transform.localScale = new Vector3(0, 0, 0);
     }
-    private void Update()
-    {
-        if (currImg == 0) prev.gameObject.SetActive(false);
-        if (currImg == (rawImages.Length - 1)) next.gameObject.SetActive(false);
-        else
-        {
-            next.gameObject.SetActive(true);
-            prev.gameObject.SetActive(true);
-        }
-    }
+   
     public void NextImg()
     {
+        
         rawImages[currImg].gameObject.SetActive(false);
         currImg++;
         rawImages[currImg].gameObject.SetActive(true);
+        check();
     }
     public void PrevImg()
     {
         rawImages[currImg].gameObject.SetActive(false);
         currImg--;
         rawImages[currImg].gameObject.SetActive(true);
+        check();
+    }
+    private void check()
+    {
+        if (currImg == 0) prev.gameObject.SetActive(false);
+        else prev.gameObject.SetActive(true);
+        if (currImg == rawImages.Length - 1) next.gameObject.SetActive(false);
+        else next.gameObject.SetActive(true);
     }
     public void AnimateCanv()
     {
