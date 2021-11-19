@@ -11,11 +11,19 @@ public class EndPoint : MonoBehaviour
         animate = true;
         ScaleIni = this.gameObject.transform.localScale;
         StartCoroutine(AnimScale());
+
     }
 
     public void AnimatePoint()
     {
-        
+        animate = true;
+        StartCoroutine(AnimScale());
+    }
+
+    public void StopAnimate()
+    {
+        animate = false;
+        this.gameObject.transform.localScale = ScaleIni;
     }
 
     IEnumerator AnimScale()
@@ -24,6 +32,6 @@ public class EndPoint : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         LeanTween.scale(this.gameObject, new Vector3(ScaleIni.x, ScaleIni.y, ScaleIni.z), 0.5f);
         yield return new WaitForSeconds(0.5f);
-        StartCoroutine(AnimScale());
+        if(animate) StartCoroutine(AnimScale());
     }
 }

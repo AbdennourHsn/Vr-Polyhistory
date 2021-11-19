@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Puzzel : MonoBehaviour
 {
     public Piece[] p;
     private bool canMove;
     public Piece EmptyPiece;
+    [SerializeField]  UnityEvent Solved;
+
     private void Start()
     {
         foreach (Piece p in p) if (p.isEmpty)
@@ -39,8 +42,14 @@ public class Puzzel : MonoBehaviour
         if (win)
         {
             canMove = false;
-            EmptyPiece.gameObject.GetComponent<MeshRenderer>().enabled = true;
+            StartCoroutine(WinEvent());
         }
+    }
+    private IEnumerator WinEvent()
+    {
+        yield return new WaitForSeconds(1);
+        EmptyPiece.gameObject.GetComponent<MeshRenderer>().enabled = true;
+        Solved.Invoke();
     }
     public void SetCanMove(bool move) { canMove = move; }
     public bool Canmove() { return canMove; }
