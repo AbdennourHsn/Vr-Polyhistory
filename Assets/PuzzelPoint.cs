@@ -302,6 +302,7 @@ public class PuzzelPoint : MonoBehaviour
             if (win) print("Win");
 
         }
+
         
     }
     
