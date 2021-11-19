@@ -113,6 +113,10 @@ public class PuzzelPoint : MonoBehaviour
 
             if (isOn)
             {
+                if( Vector2.Distance(end , ExitePt.transform.position) < 0.2f)
+                {
+                    Win();
+                }
                 pointsOfLine.Add(end);
 
             }
@@ -287,7 +291,18 @@ public class PuzzelPoint : MonoBehaviour
 
     private void Win()
     {
+        bool win=true;
+        if (PtOfLine.Count <= index.Length)
+        {
+            foreach(Point  p in index)
+            {
+                if (!PtOfLine.Contains(p)) win = false;
+            }
 
+            if (win) print("Win");
+
+        }
+        
     }
     
 }
