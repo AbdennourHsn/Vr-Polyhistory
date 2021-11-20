@@ -6832,7 +6832,6 @@ MonoBehaviour:
   - {fileID: 708067134}
   next: {fileID: 1209938251}
   prev: {fileID: 177607394}
-  LoadNextScean: {fileID: 1492251757}
 --- !u!114 &130011714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80308,7 +80307,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-  index: {fileID: 1437232535}
   otherBook: {fileID: 3877895085693637401}
 --- !u!114 &1553874667
 MonoBehaviour:
@@ -83669,7 +83667,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0.028817775, z: -0.48}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 271.16498, y: 7.934573, z: 309.38223}
+  m_ConnectedAnchor: {x: 271.16498, y: 7.941592, z: 309.3823}
   m_UseSpring: 0
   m_Spring:
     spring: 0
@@ -105754,6 +105752,18 @@ PrefabInstance:
       propertyPath: IsOpen.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8544049089953657822, guid: 65424dadab02342e2a937eae015d9811, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8544049089953657822, guid: 65424dadab02342e2a937eae015d9811, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8544049089953657822, guid: 65424dadab02342e2a937eae015d9811, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8544049089953657823, guid: 65424dadab02342e2a937eae015d9811, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -105769,14 +105779,18 @@ PrefabInstance:
     - target: {fileID: 8544049091023728998, guid: 65424dadab02342e2a937eae015d9811, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8544049091023729017, guid: 65424dadab02342e2a937eae015d9811, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.45451465
       objectReference: {fileID: 0}
     - target: {fileID: 8544049091023729017, guid: 65424dadab02342e2a937eae015d9811, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0559
+      value: 0.05941
       objectReference: {fileID: 0}
     - target: {fileID: 8544049091023729017, guid: 65424dadab02342e2a937eae015d9811, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.2232
+      value: 0.22332
       objectReference: {fileID: 0}
     - target: {fileID: 8544049091023729019, guid: 65424dadab02342e2a937eae015d9811, type: 3}
       propertyPath: m_MovementType

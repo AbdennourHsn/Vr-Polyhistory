@@ -655,7 +655,7 @@ MonoBehaviour:
   ExitePt: {fileID: 0}
   ob: {fileID: 821988648249994679}
   text: {fileID: 0}
-  Solved:
+  IsSolved:
     m_PersistentCalls:
       m_Calls: []
 --- !u!120 &821988648437491781

@@ -1709,13 +1709,8 @@ MonoBehaviour:
   - {fileID: 139899775192265670}
   - {fileID: 139899774973002643}
   - {fileID: 139899774562406724}
-  startPt: {fileID: 3886955357932047165}
-  ExitePt: {fileID: 0}
   ob: {fileID: 139899775903320302}
   text: {fileID: 0}
-  Solved:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!120 &139899775469407516
 LineRenderer:
   m_ObjectHideFlags: 0

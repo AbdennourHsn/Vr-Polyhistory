@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 //using UnityEngine.InputSystem;
 using UnityEngine.XR;
@@ -11,8 +12,8 @@ public class PuzzelPoint : MonoBehaviour
     public Transform[] obstacles;
     public Point[] index;
 
-    private Point startPt;
-    private Point ExitePt;
+    public Point startPt;
+    public Point ExitePt;
 
     LineRenderer lr;
     private bool isOn;
@@ -28,6 +29,11 @@ public class PuzzelPoint : MonoBehaviour
     private bool checkDir;
     private Vector3 currDir = Vector3.zero;
     private Vector3 end;
+
+    bool Solved;
+
+   public UnityEvent IsSolved;
+
     private void Start()
     {
         lr = this.GetComponent<LineRenderer>();
@@ -87,63 +93,68 @@ public class PuzzelPoint : MonoBehaviour
 
     private void Update()
     {
-        Vector2 mousePos;
-        //
-        if (mouse == null) mouse = FindObjectOfType<Get2DMovement>();
-        //
-        if (mouse != null)
+        if (!Solved)
         {
-            mousePos = mouse.transform.position;
-
-            end = EndLinePos(mousePos);
-
-            if (GetButtonDown())
+            Vector2 mousePos;
+            //
+            if (mouse == null) mouse = FindObjectOfType<Get2DMovement>();
+            //
+            if (mouse != null)
             {
-                //ob.transform.position = end;
-                if (Vector2.Distance(startPt.transform.position, end) < 0.5f)
+                mousePos = mouse.transform.position;
+
+                end = EndLinePos(mousePos);
+
+                if (GetButtonDown())
                 {
-                    AddFirstpt();
-
-                }
-            }
-            else
-            {
-                clearAll();
-            }
-
-            if (isOn)
-            {
-                if( Vector2.Distance(end , ExitePt.transform.position) < 0.2f)
-                {
-                    Win();
-                }
-                pointsOfLine.Add(end);
-
-            }
-
-            //checkPos();
-
-            DrawLine();
-            if (isOn)
-            {
-                foreach (Point p in pts)
-                {
-                    if (!PtOfLine.Contains(p) && Vector2.Distance(p.transform.position, end) < 0.15f)
+                    //ob.transform.position = end;
+                    if (Vector2.Distance(startPt.transform.position, end) < 0.17f)
                     {
-                        AddPt(p);
-                        break;
+                        AddFirstpt();
+
                     }
                 }
-                if (Vector2.Distance(end, PtOfLine[PtOfLine.Count - 1].transform.position) > 0.25f) GetDirection(mousePos);
-                checkPos(mousePos);
+                else
+                {
+                    clearAll(); text.text = "xxxaaa";
+                }
 
-                ob.transform.position = new Vector3(end.x , end.y , startPt.transform.position.z);
+                if (isOn)
+                {
+                    if (Vector2.Distance(end, ExitePt.transform.position) < 0.033f)
+                    {
+                        Win();
+                    }
+                    pointsOfLine.Add(end);
+
+                }
+
+                //checkPos();
+
+                
+                if (isOn)
+                {
+                    foreach (Point p in pts)
+                    {
+                        if (!PtOfLine.Contains(p) && Vector2.Distance(p.transform.position, end) < 0.05f)
+                        {
+                            AddPt(p);
+                            break;
+                        }
+                    }
+                    if (Vector2.Distance(end, PtOfLine[PtOfLine.Count - 1].transform.position) > 0.085f) GetDirection(mousePos);
+                    checkPos(mousePos);
+
+                    ob.transform.position = new Vector3(end.x, end.y, startPt.transform.position.z);
+                }
+
+
+                
+
             }
-
-
-            if (pointsOfLine.Count != 0) pointsOfLine.RemoveAt(pointsOfLine.Count - 1);
-
         }
+        DrawLine();
+        if (pointsOfLine.Count != 0 && !Solved) pointsOfLine.RemoveAt(pointsOfLine.Count - 1);
 
     }
 
@@ -180,22 +191,22 @@ public class PuzzelPoint : MonoBehaviour
     {
         if (Dir == Vector3.up && PtOfLine[PtOfLine.Count - 1].UpNeighbor() == null)
         {
-            clearAll(); print("Hit directio Ghalat");
+            clearAll(); print("Hit directio Ghalat"); text.text = "xxx";
         }
         else if (Dir == Vector3.up && PtOfLine[PtOfLine.Count - 1].UpNeighbor().isSelected) { clearAll(); Debug.Log("selected"); }
         if (Dir == Vector3.right && PtOfLine[PtOfLine.Count - 1].rightNeighbor() == null)
         {
-            clearAll(); print("Hit directio Ghalat");
+            clearAll(); print("Hit directio Ghalat"); text.text = "xxx";
         }
         else if (Dir == Vector3.right && PtOfLine[PtOfLine.Count - 1].rightNeighbor().isSelected) { clearAll(); Debug.Log("selected"); }
         if (Dir == Vector3.down && PtOfLine[PtOfLine.Count - 1].DownNeighbor() == null)
         {
-            clearAll(); print("Hit directio Ghalat");
+            clearAll(); print("Hit directio Ghalat"); text.text = "xxx";
         }
         else if (Dir == Vector3.down && PtOfLine[PtOfLine.Count - 1].DownNeighbor().isSelected) { clearAll(); Debug.Log("selected"); }
         if (Dir == Vector3.left && PtOfLine[PtOfLine.Count - 1].LeftNeighbor() == null)
         {
-            clearAll(); print("Hit directio Ghalat");
+            clearAll(); print("Hit directio Ghalat"); text.text = "xxx";
         }
         else if (Dir == Vector3.left && PtOfLine[PtOfLine.Count - 1].LeftNeighbor().isSelected) { clearAll(); Debug.Log("selected"); }
         //        Debug.Log(Dir);
@@ -204,14 +215,14 @@ public class PuzzelPoint : MonoBehaviour
 
     public void checkPos(Vector3 mou)
     {
-        if (Vector3.Distance(mou, end) > 1.5f) { clearAll(); print(" Clean Hit ba3ati 3la l end"); }
+        if (Vector3.Distance(mou, end) > 1.5f) { clearAll(); text.text = "AAA"; }
     }
 
 
 
     public void DrawLine()
     {
-        if (isOn)
+        if (isOn ||Solved )
         {
             lr.positionCount = pointsOfLine.Count;
             for (int i = 0; i < pointsOfLine.Count; i++)
@@ -265,6 +276,7 @@ public class PuzzelPoint : MonoBehaviour
     public void HoveredExit()
     {
         clearAll();
+        text.text = "www";
         hovered = false;
     }
 
@@ -291,16 +303,19 @@ public class PuzzelPoint : MonoBehaviour
 
     private void Win()
     {
-        bool win=true;
-        if (PtOfLine.Count <= index.Length)
+        bool win1=true;
+        if (PtOfLine.Count >= index.Length)
         {
-            foreach(Point  p in index)
+            foreach (Point p in index)
             {
-                if (!PtOfLine.Contains(p)) win = false;
+                if (!p.isSelected) win1 = false;
             }
 
-            if (win) print("Win");
-
+            if (win1)
+            {
+                Solved = true;
+                IsSolved.Invoke();
+            }
         }
 
         
