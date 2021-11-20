@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/yassine modif.unity
-    guid: 8f4b994eb5cda4e60b0cbe2c13e4e8cd
+    path: Assets/Yassine changes/Yas Changes.unity
+    guid: a7dfebee30182d34a89f23cbdaed7dbe
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: ff42ebc1432c84612803ee4c3b030fa7, type: 2}
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: a839cca6b5ae24c27ab35e20ba33c2b1, type: 2}

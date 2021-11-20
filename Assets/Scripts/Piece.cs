@@ -98,7 +98,7 @@ public class Piece : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         puzzel.SetCanMove(true);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.4f);
         puzzel.check();
     }
 }

@@ -22,19 +22,20 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: TreeCypress
   m_Shader: {fileID: 4800000, guid: 8d2bb70cbf9db8d4da26e15b26e74248, type: 3}
-  m_ShaderKeywords: _EMISSION _NORMALMAP
-  m_LightmapFlags: 1
+  m_ShaderKeywords: _NORMALMAP
+  m_LightmapFlags: 6
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: 3000
   stringTagMap:
-    RenderType: Opaque
-  disabledShaderPasses: []
+    RenderType: Transparent
+  disabledShaderPasses:
+  - SHADOWCASTER
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 3d7bd7354a6ab6442b91c7545456887c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Bump:
@@ -113,7 +114,7 @@ Material:
     - _Cull: 0
     - _Cutoff: 0.809
     - _DetailNormalMapScale: 1
-    - _DstBlend: 0
+    - _DstBlend: 10
     - _Glossiness: 0.5
     - _GlossinessSource: 0
     - _Metallic: 0
@@ -131,11 +132,11 @@ Material:
     - _SmoothnessSource: 0
     - _SpecSource: 0
     - _SpecularHighlights: 1
-    - _SrcBlend: 1
-    - _Surface: 0
+    - _SrcBlend: 5
+    - _Surface: 1
     - _UVSec: 0
     - _WindQuality: 4
-    - _ZWrite: 1
+    - _ZWrite: 0
     - _node_1866: 1
     - _node_6058: 0.1
     - _wrap: 1.19

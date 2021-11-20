@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 //using UnityEngine.InputSystem;
 using UnityEngine.XR;
@@ -12,8 +11,8 @@ public class PuzzelPoint : MonoBehaviour
     public Transform[] obstacles;
     public Point[] index;
 
-    public Point startPt;
-    public Point ExitePt;
+    private Point startPt;
+    private Point ExitePt;
 
     LineRenderer lr;
     private bool isOn;
@@ -29,18 +28,12 @@ public class PuzzelPoint : MonoBehaviour
     private bool checkDir;
     private Vector3 currDir = Vector3.zero;
     private Vector3 end;
-
-
-    bool win;
-    [SerializeField] UnityEvent Solved;
-
-
     private void Start()
     {
         lr = this.GetComponent<LineRenderer>();
         foreach (Point p in pts)
         {
-            if (p.startPt==true) { startPt = p; print("xx"); }
+            if (p.startPt) startPt = p;
             break;
         }
         //
@@ -53,7 +46,6 @@ public class PuzzelPoint : MonoBehaviour
         {
             RightDevice = D[0];
         }
-        
         //
     }
 
@@ -95,68 +87,64 @@ public class PuzzelPoint : MonoBehaviour
 
     private void Update()
     {
-        if (!win)
+        Vector2 mousePos;
+        //
+        if (mouse == null) mouse = FindObjectOfType<Get2DMovement>();
+        //
+        if (mouse != null)
         {
-            Vector2 mousePos;
-            //
-            if (mouse == null) mouse = FindObjectOfType<Get2DMovement>();
-            //
-            if (mouse != null)
+            mousePos = mouse.transform.position;
+
+            end = EndLinePos(mousePos);
+
+            if (GetButtonDown())
             {
-                mousePos = mouse.transform.position;
-
-                end = EndLinePos(mousePos);
-
-                if (GetButtonDown())
+                //ob.transform.position = end;
+                if (Vector2.Distance(startPt.transform.position, end) < 0.5f)
                 {
-                    //ob.transform.position = end;
-                    if (Vector2.Distance(startPt.transform.position, end) < 0.5f)
-                    {
-                        AddFirstpt();
-                        text.text = "GO";
-
-                    }
-                }
-                else
-                {
-                    clearAll();
-                }
-
-                if (isOn)
-                {
-                    pointsOfLine.Add(end);
+                    AddFirstpt();
 
                 }
+            }
+            else
+            {
+                clearAll();
+            }
 
-                //checkPos();
-
-                
-                if (isOn)
+            if (isOn)
+            {
+                if( Vector2.Distance(end , ExitePt.transform.position) < 0.2f)
                 {
-                    foreach (Point p in pts)
-                    {
-                        if (!PtOfLine.Contains(p) && Vector2.Distance(p.transform.position, end) < 0.2f)
-                        {
-                            AddPt(p);
-                            if (p.ExitePt) checkWin();
-                            break;
-                        }
-                    }
-                    ob.transform.position = new Vector3(end.x, end.y, startPt.transform.position.z);
-                    if (Vector2.Distance(end, PtOfLine[PtOfLine.Count - 1].transform.position) > 0.35f) GetDirection(mousePos);
-                    checkPos(mousePos);
-
-
+                    Win();
                 }
-
-
-                
+                pointsOfLine.Add(end);
 
             }
 
+            //checkPos();
+
+            DrawLine();
+            if (isOn)
+            {
+                foreach (Point p in pts)
+                {
+                    if (!PtOfLine.Contains(p) && Vector2.Distance(p.transform.position, end) < 0.15f)
+                    {
+                        AddPt(p);
+                        break;
+                    }
+                }
+                if (Vector2.Distance(end, PtOfLine[PtOfLine.Count - 1].transform.position) > 0.25f) GetDirection(mousePos);
+                checkPos(mousePos);
+
+                ob.transform.position = new Vector3(end.x , end.y , startPt.transform.position.z);
+            }
+
+
+            if (pointsOfLine.Count != 0) pointsOfLine.RemoveAt(pointsOfLine.Count - 1);
+
         }
-        DrawLine();
-        if (pointsOfLine.Count != 0 && !win) pointsOfLine.RemoveAt(pointsOfLine.Count - 1);
+
     }
 
 
@@ -216,14 +204,14 @@ public class PuzzelPoint : MonoBehaviour
 
     public void checkPos(Vector3 mou)
     {
-        if (Vector3.Distance(mou, end) > 2f) { clearAll(); print(" Clean Hit ba3ati 3la l end"); }
+        if (Vector3.Distance(mou, end) > 1.5f) { clearAll(); print(" Clean Hit ba3ati 3la l end"); }
     }
 
 
 
     public void DrawLine()
     {
-        if (isOn || win)
+        if (isOn)
         {
             lr.positionCount = pointsOfLine.Count;
             for (int i = 0; i < pointsOfLine.Count; i++)
@@ -238,7 +226,7 @@ public class PuzzelPoint : MonoBehaviour
         if (PtOfLine.Count == 0)
         {
             ob.SetActive(true);
-            ob.GetComponent<EndPoint>().StopAnimate();
+            text.text = "Hereeee";
             startPt.isSelected = true;
             PtOfLine.Add(startPt);
             isOn = true;
@@ -259,20 +247,15 @@ public class PuzzelPoint : MonoBehaviour
 
     public void clearAll()
     {
-        if (!win)
-        {
-            ob.transform.position = startPt.transform.position;
-            checkDir = false;
-            isOn = false;
-            pointsOfLine.Clear();
-            foreach (Point p in PtOfLine) p.isSelected = false;
-            PtOfLine.Clear();
-
-            lr.positionCount = 0;
-            currDir = Vector3.zero;
-            ob.GetComponent<EndPoint>().AnimatePoint();
-        }
-
+        checkDir = false;
+        isOn = false;
+        pointsOfLine.Clear();
+        foreach (Point p in PtOfLine) p.isSelected = false;
+        PtOfLine.Clear();
+        ob.transform.position = startPt.transform.position;
+        lr.positionCount = 0;
+        currDir = Vector3.zero;
+        ob.SetActive(false);
     }
 
     public void Hovered()
@@ -293,23 +276,34 @@ public class PuzzelPoint : MonoBehaviour
 
     public void checkWin()
     {
-        if (PtOfLine.Count >= index.Length)
+        if (PtOfLine.Count <= index.Length)
         {
-            bool win1 = true;
-            foreach (Point p in index)
+            bool win = true;
+            foreach(Point p in index)
                 if (!p.isSelected)
                 {
-                    win1 = false;
+                    win = false;
                     break;
                 }
-            if (win1)
-            {
-                win = true;
-                Solved.Invoke();
-            }
+            if (win) Win();
         }
     }
 
-    
+    private void Win()
+    {
+        bool win=true;
+        if (PtOfLine.Count <= index.Length)
+        {
+            foreach(Point  p in index)
+            {
+                if (!PtOfLine.Contains(p)) win = false;
+            }
+
+            if (win) print("Win");
+
+        }
+
+        
+    }
     
 }
