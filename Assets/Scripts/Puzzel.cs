@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Puzzel : MonoBehaviour
 {
     public Piece[] p;
     private bool canMove;
     public Piece EmptyPiece;
+    public UnityEvent IsSolved;
     private void Start()
     {
         foreach (Piece p in p) if (p.isEmpty)
@@ -39,8 +41,16 @@ public class Puzzel : MonoBehaviour
         if (win)
         {
             canMove = false;
-            EmptyPiece.gameObject.GetComponent<MeshRenderer>().enabled = true;
+            StartCoroutine(Solved());
         }
+    }
+
+    IEnumerator Solved()
+    {
+        yield return new WaitForSeconds(1.2f);
+        EmptyPiece.gameObject.GetComponent<MeshRenderer>().enabled = true;
+        IsSolved.Invoke();
+
     }
     public void SetCanMove(bool move) { canMove = move; }
     public bool Canmove() { return canMove; }

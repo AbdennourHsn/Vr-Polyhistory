@@ -5,9 +5,17 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 //using UnityEngine.InputSystem;
 using UnityEngine.XR;
+using Dreamteck.Splines;
 
 public class PuzzelPoint : MonoBehaviour
 {
+    //
+
+
+    private SplineComputer spline;
+    public SplinePoint[] points;
+
+    //
     public Point[] pts;
     public Transform[] obstacles;
     public Point[] index;
@@ -30,12 +38,18 @@ public class PuzzelPoint : MonoBehaviour
     private Vector3 currDir = Vector3.zero;
     private Vector3 end;
 
-    bool Solved;
+    public bool Solved;
 
    public UnityEvent IsSolved;
 
+    private SmoothingPoints smt;
     private void Start()
     {
+
+        //
+        spline = gameObject.GetComponent<SplineComputer>();
+        //points = new SplinePoint[segmentLength];
+        //
         lr = this.GetComponent<LineRenderer>();
         foreach (Point p in pts)
         {
@@ -52,6 +66,7 @@ public class PuzzelPoint : MonoBehaviour
         {
             RightDevice = D[0];
         }
+        //smt = GetComponent<SmoothingPoints>();
         //
     }
 
@@ -154,10 +169,27 @@ public class PuzzelPoint : MonoBehaviour
             }
         }
         DrawLine();
+       // DrawSplane();
         if (pointsOfLine.Count != 0 && !Solved) pointsOfLine.RemoveAt(pointsOfLine.Count - 1);
 
     }
 
+
+    public void DrawSplane()
+    {
+        points = new SplinePoint[pointsOfLine.Count];
+        for (int i = 0; i < points.Length; i++)
+        {
+            Vector3 x = new Vector3(pointsOfLine[i].x, pointsOfLine[i].y, startPt.transform.position.z);
+            points[i] = new SplinePoint();
+            points[i].position = x;
+            points[i].normal = Vector3.up;
+            points[i].size = 1f;
+            points[i].color = Color.white;
+        }
+       
+
+    }
 
     public void GetDirection(Vector3 mp)
     {
@@ -224,13 +256,35 @@ public class PuzzelPoint : MonoBehaviour
     {
         if (isOn ||Solved )
         {
-            lr.positionCount = pointsOfLine.Count;
-            for (int i = 0; i < pointsOfLine.Count; i++)
+
+            Vector3[] newPoints = Generate_Points(pointsOfLine.ToArray(),10, startPt.transform.position.z);
+            lr.positionCount = newPoints.Length ;
+            for (int i = 0; i < newPoints.Length; i++)
             {
-                Vector3 x = new Vector3(pointsOfLine[i].x, pointsOfLine[i].y, startPt.transform.position.z);
+                Vector3 x = new Vector3(newPoints[i].x, newPoints[i].y, startPt.transform.position.z);
                 lr.SetPosition(i, x);
             }
         }
+    }
+
+    Vector3[] Generate_Points(Vector3[] keyPoints, int segments, float zValue)
+    {
+        Vector3[] Points = new Vector3[(keyPoints.Length - 1) * segments + keyPoints.Length];
+        for (int i = 1; i < keyPoints.Length; i++)
+        {
+            Points[(i - 1) * segments + i - 1] = new Vector3(keyPoints[i - 1].x, keyPoints[i - 1].y, zValue);
+            for (int j = 1; j <= segments; j++)
+            {
+                float x = keyPoints[i - 1].x;
+                float y = keyPoints[i - 1].y;
+                float z = zValue;
+                float dx = (keyPoints[i].x - keyPoints[i - 1].x) / segments;
+                float dy = (keyPoints[i].y - keyPoints[i - 1].y) / segments;
+                Points[(i - 1) * segments + j + i - 1] = new Vector3(x + dx * j, y + dy * j, z);
+            }
+        }
+        Points[(keyPoints.Length - 1) * segments + keyPoints.Length - 1] = new Vector3(keyPoints[keyPoints.Length - 1].x, keyPoints[keyPoints.Length - 1].y, zValue);
+        return Points;
     }
     public void AddFirstpt()
     {

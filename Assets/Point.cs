@@ -8,7 +8,8 @@ public class Point : MonoBehaviour
     public bool isSelected;
     private PuzzelPoint puzzel;
     public bool startPt , ExitePt;
-    private void Awake()
+    
+    private void OnEnable()
     {
         puzzel = FindObjectOfType<PuzzelPoint>();
     }

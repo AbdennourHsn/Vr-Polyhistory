@@ -19,13 +19,13 @@ public class CharacterAnimation : MonoBehaviour
     {
         
         animator.SetTrigger("Walk");
-        LeanTween.moveLocalZ(this.gameObject, PosIni.z + 5,5f);
+        LeanTween.moveLocalX(this.gameObject, PosIni.x + 8,5f);
         yield return new WaitForSeconds(5);
         animator.SetTrigger("turn");
         LeanTween.rotateAround(gameObject,Vector3.up ,180, 0.8f);
         yield return new WaitForSeconds(0.9f);
         animator.SetTrigger("Walk"); 
-        LeanTween.moveLocalZ(this.gameObject, PosIni.z , 5f);
+        LeanTween.moveLocalX(this.gameObject, PosIni.x , 5f);
         yield return new WaitForSeconds(5);
         animator.SetTrigger("turn");
         LeanTween.rotateAround(gameObject, Vector3.up, 180, 0.8f);

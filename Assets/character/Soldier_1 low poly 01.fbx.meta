@@ -45,7 +45,7 @@ ModelImporter:
     importLights: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
@@ -73,9 +73,12 @@ ModelImporter:
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips:
+  - cd610c16b3ac44ad5a7a02544aad66c4
   - 77d4bd84358be4cc79c18e43009b379d
+  - c7a673d33c18944a6985058631f7040d
   - fc3a683744c2f4b4ab3cbde613490b4f
   - 4088db7f55795418ba50f4efcf5b2b95
+  - 569394514289146469e8be1c6ac4bf58
   importAnimation: 1
   humanDescription:
     serializedVersion: 3

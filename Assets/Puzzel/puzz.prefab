@@ -498,6 +498,7 @@ GameObject:
   - component: {fileID: 821988648437491781}
   - component: {fileID: 821988648437491782}
   - component: {fileID: 821988648437491783}
+  - component: {fileID: 8189901820561638068}
   m_Layer: 6
   m_Name: puzz
   m_TagString: Untagged
@@ -618,6 +619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5f32e42ef45e4e5eafd6d7308c61425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points: []
   pts:
   - {fileID: 821988649188673401}
   - {fileID: 821988650104423028}
@@ -655,6 +657,7 @@ MonoBehaviour:
   ExitePt: {fileID: 0}
   ob: {fileID: 821988648249994679}
   text: {fileID: 0}
+  Solved: 0
   IsSolved:
     m_PersistentCalls:
       m_Calls: []
@@ -880,6 +883,19 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8189901820561638068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821988648437491805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caf8719045c924902b28b702fab2e137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points: []
 --- !u!1 &821988648612132061
 GameObject:
   m_ObjectHideFlags: 0
